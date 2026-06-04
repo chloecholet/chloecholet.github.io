@@ -9,16 +9,17 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0f0f0f;
-  --surface: #191919;
-  --surface-2: #222222;
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,255,255,0.18);
-  --text: #f0ede8;
-  --text-muted: #888882;
-  --text-dim: #555550;
-  --accent: #c8a96e;
-  --accent-dim: rgba(200,169,110,0.12);
+  /* palette patched to beige-light */
+  --bg: #f5f0e8;
+  --surface: #ffffff;
+  --surface-2: #ede8de;
+  --border: rgba(80,70,50,0.12);
+  --border-hover: rgba(80,70,50,0.25);
+  --text: #1e1e1a;
+  --text-muted: #5a5a50;
+  --text-dim: #9a9488;
+  --accent: #4a7c5e;
+  --accent-dim: rgba(126,200,160,0.12);
   --radius: 4px;
   --radius-md: 6px;
 }
@@ -40,7 +41,7 @@ nav {
   height: 56px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 3rem;
-  background: rgba(15,15,15,0.92);
+  background: rgba(245,240,232,0.94);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
@@ -64,6 +65,9 @@ nav {
   padding: 0 3rem 5rem;
   position: relative;
   border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(120,150,100,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 10% 80%, rgba(100,120,80,0.05) 0%, transparent 60%);
 }
 .hero-line {
   width: 1px; height: 80px;
@@ -164,7 +168,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 0 3rem; 
 .card-img-wrapper { position: relative; }
 .card-upload-btn {
   position: absolute; bottom: 10px; right: 10px;
-  background: rgba(0,0,0,0.7); border: 1px solid var(--border-hover);
+  background: rgba(245,240,232,0.9); border: 1px solid var(--border-hover);
   color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.08em;
   text-transform: uppercase; padding: 5px 10px; border-radius: var(--radius);
   cursor: pointer; transition: all 0.2s; z-index: 5;
@@ -304,7 +308,7 @@ footer p { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.04em; }
 /* ── MODAL ── */
 .modal-overlay {
   display: none; position: fixed; inset: 0; z-index: 300;
-  background: rgba(0,0,0,0.75);
+  background: rgba(230,224,212,0.88);
   backdrop-filter: blur(6px);
   align-items: flex-start; justify-content: center;
   padding: 4rem 2rem;
@@ -348,7 +352,7 @@ footer p { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.04em; }
 }
 .modal-close {
   position: absolute; top: 1rem; right: 1rem;
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(245,240,232,0.9); border: 1px solid var(--border-hover);
   color: var(--text-muted); width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; font-size: 0.9rem; transition: all 0.2s;
