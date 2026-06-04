@@ -1,1 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chloé Cholet — Mechanical Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+:root {
+  --bg: #0f0f0f;
+  --surface: #191919;
+  --surface-2: #222222;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.18);
+  --text: #f0ede8;
+  --text-muted: #888882;
+  --text-dim: #555550;
+  --accent: #c8a96e;
+  --accent-dim: rgba(200,169,110,0.12);
+  --radius: 4px;
+  --radius-md: 6px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(15,15,15,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; letter-spacing: 0.04em;
+  color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 3rem 5rem;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.hero-line {
+  width: 1px; height: 80px;
+  background: var(--border-hover);
+  margin-bottom: 3rem;
+}
+.hero-label {
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.5rem; font-weight: 400;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 400; line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-meta {
+  display: flex; gap: 3rem; align-items: flex-start;
+  flex-wrap: wrap; margin-bottom: 2rem;
+}
+.hero-meta-block { }
+.hero-meta-label {
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 4px;
+}
+.hero-meta-value { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; }
+.hero-meta-value strong { color: var(--text); font-weight: 400; }
+.hero-scroll {
+  position: absolute; right: 3rem; bottom: 5rem;
+  font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-dim); writing-mode: vertical-rl;
+}
+
+/* ── SECTIONS ── */
+.section { max-width: 1200px; margin: 0 auto; padding: 6rem 3rem; }
+.section-header { display: flex; align-items: baseline; gap: 2rem; margin-bottom: 4rem; }
+.section-num { font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400; color: var(--text);
+}
+.section-rule { flex: 1; height: 1px; background: var(--border); }
+
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 0 3rem; }
+
+/* ── CARDS GRID ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px;
+}
+
+.card {
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+  display: flex; flex-direction: column;
+}
+.card:hover { background: var(--surface-2); }
+.card:hover .card-img-overlay { opacity: 0.4; }
+.card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+.card-img {
+  width: 100%; height: 200px; object-fit: cover;
+  display: block;
+  filter: grayscale(20%) brightness(0.8);
+  transition: filter 0.4s, transform 0.4s;
+}
+.card:hover .card-img { filter: grayscale(0%) brightness(0.9); transform: scale(1.03); }
+
+.card-img-placeholder {
+  width: 100%; height: 200px;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+  overflow: hidden; position: relative;
+}
+.card-img-placeholder .ph-label { position: relative; z-index: 1; }
+.card-img-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 20px,
+    rgba(255,255,255,0.012) 20px, rgba(255,255,255,0.012) 21px
+  );
+}
+
+/* Upload overlay on placeholder */
+.card-img-wrapper { position: relative; }
+.card-upload-btn {
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(0,0,0,0.7); border: 1px solid var(--border-hover);
+  color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 5px 10px; border-radius: var(--radius);
+  cursor: pointer; transition: all 0.2s; z-index: 5;
+}
+.card-upload-btn:hover { background: rgba(200,169,110,0.2); color: var(--accent); border-color: var(--accent); }
+
+.card-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+.card-category {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim); font-weight: 400;
+}
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 400; color: var(--text); line-height: 1.35;
+}
+.card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-top: 2px; flex: 1; }
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+.card-period { font-size: 0.7rem; color: var(--text-dim); }
+.card-arrow {
+  font-size: 0.8rem; color: var(--accent);
+  opacity: 0; transition: all 0.2s;
+}
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: grid; grid-template-columns: 160px 1px 1fr;
+  gap: 0 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-left { text-align: right; padding-right: 0; }
+.timeline-period { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.04em; line-height: 1.4; }
+.timeline-type {
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-top: 6px;
+}
+.timeline-spine {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+}
+.timeline-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0; margin-top: 4px;
+}
+.timeline-line {
+  flex: 1; width: 1px; background: var(--border); margin-top: 8px;
+}
+.timeline-content {}
+.timeline-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 400; margin-bottom: 4px; color: var(--text);
+}
+.timeline-org { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+.timeline-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.timeline-list li {
+  font-size: 0.82rem; color: var(--text-muted); padding-left: 1rem; position: relative;
+}
+.timeline-list li::before {
+  content: '—'; position: absolute; left: 0; color: var(--text-dim);
+}
+
+/* ── SKILLS ── */
+.skills-table { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.skill-row {
+  background: var(--surface); padding: 1.5rem 2rem;
+  display: grid; grid-template-columns: 160px 1fr; gap: 1rem; align-items: start;
+}
+.skill-cat {
+  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); padding-top: 2px;
+}
+.skill-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+  font-size: 0.75rem; color: var(--text-muted);
+  border: 1px solid var(--border); padding: 3px 10px;
+  border-radius: 2px; background: transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── AWARDS ── */
+.awards-list { display: flex; flex-direction: column; gap: 2px; }
+.award-item {
+  background: var(--surface); padding: 1.5rem 2rem;
+  display: grid; grid-template-columns: 100px 1fr auto;
+  gap: 2rem; align-items: center;
+  transition: background 0.2s;
+}
+.award-item:hover { background: var(--surface-2); }
+.award-year { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text-dim); }
+.award-title { font-size: 0.92rem; color: var(--text); font-weight: 400; margin-bottom: 3px; }
+.award-desc { font-size: 0.78rem; color: var(--text-muted); }
+.award-mark { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+
+/* ── CONTACT ── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.contact-block { background: var(--surface); padding: 2.5rem; }
+.contact-block-label {
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 1.5rem;
+}
+.contact-items { display: flex; flex-direction: column; gap: 1rem; }
+.contact-item { display: flex; flex-direction: column; gap: 2px; }
+.contact-item-label { font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; }
+.contact-item a, .contact-item span {
+  font-size: 0.88rem; color: var(--text-muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.contact-item a:hover { color: var(--accent); }
+.cv-block {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 2rem;
+}
+.cv-block p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; }
+.btn-cv {
+  display: inline-block; padding: 10px 24px;
+  border: 1px solid var(--accent); color: var(--accent);
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; font-family: 'Inter', sans-serif;
+  transition: background 0.2s, color 0.2s;
+  width: fit-content;
+}
+.btn-cv:hover { background: var(--accent); color: var(--bg); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer p { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.04em; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  align-items: flex-start; justify-content: center;
+  padding: 4rem 2rem;
+  overflow-y: auto;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-hover);
+  width: 100%; max-width: 680px;
+  padding: 0;
+  animation: fadeUp 0.25s ease;
+  flex-shrink: 0;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.modal-header {
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.modal-cover {
+  width: 100%; height: 240px; object-fit: cover;
+  display: block;
+  filter: brightness(0.75);
+}
+.modal-cover-placeholder {
+  width: 100%; height: 120px;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.modal-cover-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 20px,
+    rgba(255,255,255,0.012) 20px, rgba(255,255,255,0.012) 21px
+  );
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-muted); width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 0.9rem; transition: all 0.2s;
+  z-index: 5;
+}
+.modal-close:hover { background: rgba(200,169,110,0.2); color: var(--accent); border-color: var(--accent); }
+
+.modal-body { padding: 2rem 2.5rem; }
+.modal-cat {
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.75rem;
+}
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; font-weight: 400; margin-bottom: 0.4rem; color: var(--text);
+}
+.modal-period { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1.75rem; }
+.modal-section { margin-bottom: 1.5rem; }
+.modal-section-label {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 0.6rem; display: block;
+}
+.modal-section p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+.modal-section ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.modal-section ul li {
+  font-size: 0.83rem; color: var(--text-muted); line-height: 1.6;
+  padding-left: 1rem; position: relative;
+}
+.modal-section ul li::before { content: '—'; position: absolute; left: 0; color: var(--text-dim); }
+.modal-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.modal-chip {
+  font-size: 0.72rem; color: var(--text-muted);
+  border: 1px solid var(--border); padding: 3px 10px;
+  letter-spacing: 0.04em;
+}
+.modal-divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+
+/* Upload zone */
+.upload-zone {
+  border: 1px dashed rgba(255,255,255,0.15); padding: 1.5rem;
+  text-align: center; cursor: pointer; transition: border-color 0.2s;
+  margin-top: 0.5rem;
+}
+.upload-zone:hover { border-color: var(--accent); }
+.upload-zone-label {
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.upload-zone p { font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; }
+.uploaded-files { display: flex; flex-direction: column; gap: 6px; margin-top: 0.75rem; }
+.uploaded-file {
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.uploaded-file-name { flex: 1; color: var(--text-muted); }
+.uploaded-file-remove {
+  color: var(--text-dim); cursor: pointer; font-size: 0.85rem; transition: color 0.2s;
+}
+.uploaded-file-remove:hover { color: var(--text); }
+
+/* Image upload on card */
+.card-img-input { display: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 0 1.5rem 4rem; }
+  .section { padding: 4rem 1.5rem; }
+  .skills-table { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .timeline-item { grid-template-columns: 1fr; }
+  .timeline-spine { display: none; }
+  .timeline-left { text-align: left; }
+  .award-item { grid-template-columns: 60px 1fr; }
+  .award-mark { display: none; }
+  hr.divider { margin: 0 1.5rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Chloé Cholet</a>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#involvement">Involvement</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-line"></div>
+  <div class="hero-label">Mechanical Engineering</div>
+  <h1>Chloé<br><em>Cholet</em></h1>
+  <div class="hero-meta">
+    <div class="hero-meta-block">
+      <div class="hero-meta-label">Institution</div>
+      <div class="hero-meta-value"><strong>Arts et Métiers Institute of Technology</strong> — ParisTech</div>
+    </div>
+    <div class="hero-meta-block">
+      <div class="hero-meta-label">Fellowship</div>
+      <div class="hero-meta-value"><strong>Fulbright Scholar</strong> — Leonora Windsley Partnership Award</div>
+    </div>
+    <div class="hero-meta-block">
+      <div class="hero-meta-label">Academic standing</div>
+      <div class="hero-meta-value"><strong>GPA 3.94 / 4.0</strong> — Top 3% of class</div>
+    </div>
+    <div class="hero-meta-block">
+      <div class="hero-meta-label">Focus</div>
+      <div class="hero-meta-value">Advanced materials · Manufacturing processes · Sustainable engineering</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</div>
+
+<hr class="divider">
+
+<!-- RESEARCH & PROJECTS -->
+<section id="research">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Research & Projects</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card" onclick="openModal('m-glenoid')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-glenoid">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-glenoid">+ Image</label>
+          <input class="card-img-input" type="file" id="img-glenoid" accept="image/*" onchange="setCardImage(this,'ph-glenoid','mc-glenoid')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Research — Ongoing · Team of 6</div>
+          <div class="card-title">Glenoid Prosthesis — Georges Charpak Human Institute</div>
+          <div class="card-desc">Designing the glenoid component of a shoulder prosthesis, characterizing polymeric materials via IR spectroscopy and DSC.</div>
+          <div class="card-footer">
+            <span class="card-period">Oct 2025 – Present</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-ai')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-ai">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-ai">+ Image</label>
+          <input class="card-img-input" type="file" id="img-ai" accept="image/*" onchange="setCardImage(this,'ph-ai','mc-ai')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Research — Ongoing · Team of 2</div>
+          <div class="card-title">AI Interpretation in Additive Manufacturing</div>
+          <div class="card-desc">Deep learning for automated shape recognition, democratizing 3D printing access through AI-driven design interpretation.</div>
+          <div class="card-footer">
+            <span class="card-period">Sept 2025 – Present</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-pump')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-pump">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-pump">+ Image</label>
+          <input class="card-img-input" type="file" id="img-pump" accept="image/*" onchange="setCardImage(this,'ph-pump','mc-pump')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Manufacturing — Completed · Team of 2</div>
+          <div class="card-title">Design-to-Production: Pump Interface Component</div>
+          <div class="card-desc">End-to-end part development from 3DX modeling through material selection and CNC machining.</div>
+          <div class="card-footer">
+            <span class="card-period">Sept 2024 – Jun 2025</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-foundry')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-foundry">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-foundry">+ Image</label>
+          <input class="card-img-input" type="file" id="img-foundry" accept="image/*" onchange="setCardImage(this,'ph-foundry','mc-foundry')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Manufacturing — Completed · Team of 3</div>
+          <div class="card-title">Foundry Design & Optimization</div>
+          <div class="card-desc">Design and manufacture of a drilling jig through sand casting, mold optimization and microstructural analysis.</div>
+          <div class="card-footer">
+            <span class="card-period">Nov 2024 – Feb 2025</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-petanque')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-petanque">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-petanque">+ Image</label>
+          <input class="card-img-input" type="file" id="img-petanque" accept="image/*" onchange="setCardImage(this,'ph-petanque','mc-petanque')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Research — Completed · Team of 2</div>
+          <div class="card-title">La Pétanque — Automated Distance Measurement</div>
+          <div class="card-desc">Ultrasound sensor system with custom CAD and servomotor control for real-time distance measurement.</div>
+          <div class="card-footer">
+            <span class="card-period">Dec 2022 – Jun 2024</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WORK EXPERIENCE -->
+<section id="experience">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Nov 2025 – Present</div>
+          <div class="timeline-type">Data</div>
+        </div>
+        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Data Analyst</div>
+          <div class="timeline-org">AMJE Lille — Lille, France</div>
+          <ul class="timeline-list">
+            <li>Automating KPI tracking for the Communication department using N8N, ensuring real-time performance monitoring</li>
+            <li>Developing interactive dashboards enabling business teams to visualize and assess their effectiveness</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Sept 2025 – Present</div>
+          <div class="timeline-type">Entrepreneurship</div>
+        </div>
+        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Co-Founder & Tutor</div>
+          <div class="timeline-org">Gadz School — <a href="https://gadzcoursparticuliers.fr/" target="_blank" style="color:var(--accent); text-decoration:none;">gadzcoursparticuliers.fr</a></div>
+          <ul class="timeline-list">
+            <li>Recruited and coordinated a team of 20 tutors, supporting 25 students across various subjects</li>
+            <li>Delivering individualized tutoring to learners ranging from children to adults, including preparing a 60-year-old for an international aeronautical certification</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Jun – Aug 2025</div>
+          <div class="timeline-type">Engineering</div>
+        </div>
+        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Continuous Improvement Engineer</div>
+          <div class="timeline-org">Safran Aircraft Engines — Gennevilliers, France</div>
+          <ul class="timeline-list">
+            <li>Led continuous improvement and assembly line optimization projects using Lean Management and 5S methodologies</li>
+            <li>Designed and implemented a color-coded zoning and workstation reorganization system — cost savings of over €30,000 per month</li>
+            <li>Performed polishing and chemical etching on titanium alloys to validate grain size during quality control inspections</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Sept 2024 – Present</div>
+          <div class="timeline-type">GPA 3.94 / 4.0</div>
+        </div>
+        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Combined BS & MS — Mechanical & Industrial Engineering</div>
+          <div class="timeline-org">Arts et Métiers Institute of Technology · ParisTech — Lille then Paris, France</div>
+          <ul class="timeline-list">
+            <li>Top 10 French Graduate Engineering School — ranked top 3% of fourth-year students</li>
+            <li>Courses: Polymers, Materials Science, Forging & Casting Processes, Product Design, Product Manufacturing, Computer Science, Electronics, Optimization</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Sept 2022 – Jul 2024</div>
+          <div class="timeline-type">GPA 3.83 / 4.0</div>
+        </div>
+        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Classe Préparatoire aux Grandes Écoles (CPGE)</div>
+          <div class="timeline-org">Lycée privé Sainte-Geneviève — Versailles, France</div>
+          <ul class="timeline-list">
+            <li>Top 1 selective two-year program in France, preparing students for competitive entrance exams to elite Engineering Schools</li>
+            <li>Courses: Advanced Mechanics, Electromagnetism, Linear Algebra, Differential Equations, Dynamical Systems, Computer Science</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INVOLVEMENT -->
+<section id="involvement">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Leadership & Involvement</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card" onclick="openModal('m-vp')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-vp">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-vp">+ Image</label>
+          <input class="card-img-input" type="file" id="img-vp" accept="image/*" onchange="setCardImage(this,'ph-vp','mc-vp')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Leadership — Ongoing</div>
+          <div class="card-title">Vice President — Sports Association, Arts et Métiers</div>
+          <div class="card-desc">Organizing inter-campus sports weekends with 1,000+ students across 8 campuses. Managing a €10,000 government grant.</div>
+          <div class="card-footer">
+            <span class="card-period">Jun 2025 – Present</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-iesf')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-iesf">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-iesf">+ Image</label>
+          <input class="card-img-input" type="file" id="img-iesf" accept="image/*" onchange="setCardImage(this,'ph-iesf','mc-iesf')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Volunteering — IESF</div>
+          <div class="card-title">STEM Outreach Speaker — Women in Engineering</div>
+          <div class="card-desc">Conferences and workshops inspiring middle school girls and seniors in Lille to pursue STEM careers.</div>
+          <div class="card-footer">
+            <span class="card-period">Jan – Jun 2025</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-ueam')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-ueam">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-ueam">+ Image</label>
+          <input class="card-img-input" type="file" id="img-ueam" accept="image/*" onchange="setCardImage(this,'ph-ueam','mc-ueam')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Ambassador — UEAM</div>
+          <div class="card-title">Student Ambassador — Union des Élèves Arts et Métiers</div>
+          <div class="card-desc">Managing key partnerships with Monster, Vinci Energies, EY. Hosting conferences and networking events in Paris.</div>
+          <div class="card-footer">
+            <span class="card-period">Sept 2025 – Present</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('m-soccer')">
+        <div class="card-img-wrapper">
+          <div class="card-img-placeholder" id="ph-soccer">
+            <span class="ph-label">Add cover image</span>
+          </div>
+          <label class="card-upload-btn" onclick="event.stopPropagation()" for="img-soccer">+ Image</label>
+          <input class="card-img-input" type="file" id="img-soccer" accept="image/*" onchange="setCardImage(this,'ph-soccer','mc-soccer')">
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sports</div>
+          <div class="card-title">Team Captain — Soccer</div>
+          <div class="card-desc">Organizing and coordinating tournaments — TOSS, Saint-Gobain, Cité U. Also active in volleyball.</div>
+          <div class="card-footer">
+            <span class="card-period">Sept 2024 – Present</span>
+            <span class="card-arrow">&#8599;</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Skills & Tools</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-table">
+      <div class="skill-row">
+        <div class="skill-cat">Programming</div>
+        <div class="skill-items">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">MATLAB Simulink</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Arduino</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat">CAD & Simulation</div>
+        <div class="skill-items">
+          <span class="skill-tag">3DExperience</span>
+          <span class="skill-tag">CATIA V5</span>
+          <span class="skill-tag">SolidWorks</span>
+          <span class="skill-tag">Abaqus (FEA)</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat">Materials & Testing</div>
+        <div class="skill-items">
+          <span class="skill-tag">Granta EduPack</span>
+          <span class="skill-tag">Metallography</span>
+          <span class="skill-tag">Mech. Testing</span>
+          <span class="skill-tag">Additive Mfg.</span>
+          <span class="skill-tag">DSC</span>
+          <span class="skill-tag">IR Spectroscopy</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-items">
+          <span class="skill-tag">French — Native</span>
+          <span class="skill-tag">English — TOEFL 106</span>
+          <span class="skill-tag">Spanish — 8 yrs</span>
+          <span class="skill-tag">Thai — Mother tongue</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Awards & Achievements</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="awards-list">
+      <div class="award-item">
+        <div class="award-year">2025</div>
+        <div>
+          <div class="award-title">Fulbright Scholar — Leonora Windsley Partnership Award</div>
+          <div class="award-desc">Prestigious international fellowship for academic excellence and cross-cultural exchange</div>
+        </div>
+        <div class="award-mark">Fellowship</div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2025</div>
+        <div>
+          <div class="award-title">Award for Outstanding Academic Achievement</div>
+          <div class="award-desc">Ranked in the top 10% of Arts et Métiers fourth year students</div>
+        </div>
+        <div class="award-mark">Academic</div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">Mar 2025</div>
+        <div>
+          <div class="award-title">Award-Winning Short Film — "La vie aux Arts"</div>
+          <div class="award-desc">3rd place among 2,200 entries — co-directed a film promoting careers in mechanical and industrial engineering</div>
+        </div>
+        <div class="award-mark">Creative</div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2022</div>
+        <div>
+          <div class="award-title">Baccalauréat — Highest Honors</div>
+          <div class="award-desc">High school diploma with highest distinction</div>
+        </div>
+        <div class="award-mark">Academic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <div class="contact-block-label">Get in touch</div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <span class="contact-item-label">Email</span>
+            <a href="mailto:chloecholet2512@hotmail.com">chloecholet2512@hotmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Phone</span>
+            <a href="tel:+33767274677">+33 767 274 677</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Website</span>
+            <a href="https://gadzcoursparticuliers.fr/" target="_blank">gadzcoursparticuliers.fr</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Location</span>
+            <span>Paris, France — open to international opportunities</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-block cv-block">
+        <div>
+          <div class="contact-block-label">Curriculum Vitae</div>
+          <p>Full resume with research projects, work experience, skills and achievements.</p>
+        </div>
+        <a href="CV-MSfinal.pdf" download class="btn-cv">Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Chloé Cholet — Mechanical Engineering</p>
+  <p>Arts et Métiers · ParisTech · Fulbright Scholar</p>
+</footer>
+
+<!-- ════════════════ MODALS ════════════════ -->
+
+<!-- Glenoid -->
+<div class="modal-overlay" id="m-glenoid">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-glenoid"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-glenoid')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Research — Ongoing · Team of 6</div>
+      <div class="modal-title">Glenoid Prosthesis</div>
+      <div class="modal-period">October 2025 – Present · Georges Charpak Human Institute</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Determine the optimal material and prosthesis geometry to minimize the risk of glenoid component loosening in shoulder replacement surgery.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Designing the glenoid component of a shoulder prosthesis in CATIA using Boolean operations</li>
+          <li>Characterizing polymeric materials via Infrared Reflection Spectroscopy (IR) and Differential Scanning Calorimetry (DSC)</li>
+          <li>3D-printing and mechanically testing the prototype to assess performance and material behavior</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Tools & Methods</span>
+        <div class="modal-chips">
+          <span class="modal-chip">CATIA V5</span><span class="modal-chip">DSC</span><span class="modal-chip">IR Spectroscopy</span><span class="modal-chip">3D Printing</span><span class="modal-chip">Mechanical Testing</span>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments — reports, drawings, data</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-glenoid').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>PDF, images, CAD files, reports</p>
+          <input type="file" id="uf-glenoid" multiple style="display:none" onchange="handleUpload(this,'ufl-glenoid')">
+        </div>
+        <div class="uploaded-files" id="ufl-glenoid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI AM -->
+<div class="modal-overlay" id="m-ai">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-ai"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-ai')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Research — Ongoing · Team of 2</div>
+      <div class="modal-title">AI Interpretation in Additive Manufacturing</div>
+      <div class="modal-period">September 2025 – Present · Supervised Research Project</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Democratize 3D printing access by bridging user ideas with AI-driven design interpretation and Python coding.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Prototyping shape recognition (circles, rectangles, etc.) for automated feature detection</li>
+          <li>Designing classification scripts to sort extracted data into evaluation criteria</li>
+          <li>Using deep learning methods to develop a custom AI model</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Tools & Methods</span>
+        <div class="modal-chips">
+          <span class="modal-chip">Python</span><span class="modal-chip">Deep Learning</span><span class="modal-chip">Additive Manufacturing</span><span class="modal-chip">Computer Vision</span>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-ai').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>PDF, images, code files, reports</p>
+          <input type="file" id="uf-ai" multiple style="display:none" onchange="handleUpload(this,'ufl-ai')">
+        </div>
+        <div class="uploaded-files" id="ufl-ai"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pump -->
+<div class="modal-overlay" id="m-pump">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-pump"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-pump')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Manufacturing — Completed · Team of 2</div>
+      <div class="modal-title">Design-to-Production: Pump Interface Component</div>
+      <div class="modal-period">September 2024 – June 2025 · Professional Project</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Lead the end-to-end development of a part, from design concept to production-ready manufacturing.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Engineered a detailed part design using 3DX modeling software</li>
+          <li>Material selection using Ashby charts and Granta EduPack, balancing strength, cost, and machinability</li>
+          <li>Implemented a machining program in MATLAB and initiated the machining process</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Tools & Methods</span>
+        <div class="modal-chips">
+          <span class="modal-chip">3DExperience</span><span class="modal-chip">MATLAB</span><span class="modal-chip">Granta EduPack</span><span class="modal-chip">CNC Machining</span><span class="modal-chip">Ashby Charts</span>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-pump').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>PDF, technical drawings, reports</p>
+          <input type="file" id="uf-pump" multiple style="display:none" onchange="handleUpload(this,'ufl-pump')">
+        </div>
+        <div class="uploaded-files" id="ufl-pump"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Foundry -->
+<div class="modal-overlay" id="m-foundry">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-foundry"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-foundry')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Manufacturing — Completed · Team of 3</div>
+      <div class="modal-title">Foundry Design & Optimization</div>
+      <div class="modal-period">November 2024 – February 2025 · Professional Project</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Design and manufacture a drilling jig through sand casting, while determining the optimal mold configuration.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Mold design and optimization — cooling channel layout, venting, and gating configuration</li>
+          <li>Performed casting and microstructural analysis to evaluate solidification behavior</li>
+          <li>Ensured part integrity through systematic quality control inspection</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Tools & Methods</span>
+        <div class="modal-chips">
+          <span class="modal-chip">Sand Casting</span><span class="modal-chip">Metallography</span><span class="modal-chip">Mold Design</span><span class="modal-chip">Microstructural Analysis</span>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-foundry').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>PDF, images, analysis reports</p>
+          <input type="file" id="uf-foundry" multiple style="display:none" onchange="handleUpload(this,'ufl-foundry')">
+        </div>
+        <div class="uploaded-files" id="ufl-foundry"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pétanque -->
+<div class="modal-overlay" id="m-petanque">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-petanque"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-petanque')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Research — Completed · Team of 2</div>
+      <div class="modal-title">La Pétanque — Automated Distance Measurement</div>
+      <div class="modal-period">December 2022 – June 2024 · Supervised Research</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Develop an effective and automated method to measure the distance between balls and the target in the French game Pétanque.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Designed and built an ultrasound sensor system for distance measurement via reflections on custom supports</li>
+          <li>Custom CAD designs and rapid prototyping to adapt the sensor system to real-game constraints</li>
+          <li>Controlled a servomotor and IR sensor to measure multiple distances and orient toward the shortest one</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Tools & Methods</span>
+        <div class="modal-chips">
+          <span class="modal-chip">Arduino</span><span class="modal-chip">CAD</span><span class="modal-chip">Rapid Prototyping</span><span class="modal-chip">Ultrasound Sensors</span><span class="modal-chip">Servomotor Control</span>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-petanque').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>PDF, images, code files</p>
+          <input type="file" id="uf-petanque" multiple style="display:none" onchange="handleUpload(this,'ufl-petanque')">
+        </div>
+        <div class="uploaded-files" id="ufl-petanque"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VP -->
+<div class="modal-overlay" id="m-vp">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-vp"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-vp')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Leadership — Ongoing</div>
+      <div class="modal-title">Vice President — Sports Association</div>
+      <div class="modal-period">June 2025 – Present · Arts et Métiers Institute of Technology</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Expand athletic opportunities and foster community engagement across all Arts et Métiers campuses.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Organizing a major inter-campus sports weekend uniting 1,000+ students from 8 campuses across 15+ sports</li>
+          <li>Managing university funding (FSDIE) — overseeing a €10,000 government grant allocated to student sports and event development</li>
+        </ul>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-vp').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>Photos, posters, documents</p>
+          <input type="file" id="uf-vp" multiple style="display:none" onchange="handleUpload(this,'ufl-vp')">
+        </div>
+        <div class="uploaded-files" id="ufl-vp"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IESF -->
+<div class="modal-overlay" id="m-iesf">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-iesf"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-iesf')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Volunteering — Women in Engineering</div>
+      <div class="modal-title">STEM Outreach Speaker — IESF</div>
+      <div class="modal-period">January 2025 – June 2025</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Objective</span>
+        <p>Inspire and encourage young girls to pursue scientific and engineering careers.</p>
+      </div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Gave conferences on various engineering fields to middle school girls and seniors of Lille</li>
+          <li>Organized activities and tours of school and engineering departments to introduce students to STEM career paths</li>
+        </ul>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-iesf').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>Photos, presentations</p>
+          <input type="file" id="uf-iesf" multiple style="display:none" onchange="handleUpload(this,'ufl-iesf')">
+        </div>
+        <div class="uploaded-files" id="ufl-iesf"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UEAM -->
+<div class="modal-overlay" id="m-ueam">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-ueam"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-ueam')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Ambassador — UEAM</div>
+      <div class="modal-title">Student Ambassador — Union des Élèves Arts et Métiers</div>
+      <div class="modal-period">September 2025 – Present</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Managing key partnerships including Monster, Vinci Energies and EY</li>
+          <li>Organizing and hosting events in Paris — conferences, networking sessions, afterworks</li>
+          <li>Developing engagement strategies to strengthen relationships with corporate partners and alumni</li>
+        </ul>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-ueam').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>Event photos, documents</p>
+          <input type="file" id="uf-ueam" multiple style="display:none" onchange="handleUpload(this,'ufl-ueam')">
+        </div>
+        <div class="uploaded-files" id="ufl-ueam"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Soccer -->
+<div class="modal-overlay" id="m-soccer">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-cover-placeholder" id="mc-soccer"><span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)">No cover image</span></div>
+      <button class="modal-close" onclick="closeModal('m-soccer')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat">Sports</div>
+      <div class="modal-title">Team Captain — Soccer</div>
+      <div class="modal-period">September 2024 – Present</div>
+      <div class="modal-section">
+        <span class="modal-section-label">Contributions</span>
+        <ul>
+          <li>Organizing and coordinating tournaments — TOSS, Saint-Gobain, Cité U</li>
+          <li>Promoting teamwork, strategy, and team spirit</li>
+          <li>Also active in volleyball</li>
+        </ul>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-section">
+        <span class="modal-section-label">Attachments</span>
+        <div class="upload-zone" onclick="document.getElementById('uf-soccer').click()">
+          <div class="upload-zone-label">Drop files or click to browse</div>
+          <p>Team photos, tournament results</p>
+          <input type="file" id="uf-soccer" multiple style="display:none" onchange="handleUpload(this,'ufl-soccer')">
+        </div>
+        <div class="uploaded-files" id="ufl-soccer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', function(e) {
+    if (e.target === this) closeModal(this.id);
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape')
+    document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
+});
+
+function setCardImage(input, placeholderId, modalCoverId) {
+  const file = input.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const ph = document.getElementById(placeholderId);
+  ph.innerHTML = `<img src="${url}" style="width:100%;height:200px;object-fit:cover;display:block;filter:grayscale(20%) brightness(0.8);">`;
+
+  const mc = document.getElementById(modalCoverId);
+  if (mc) {
+    mc.innerHTML = `<img src="${url}" class="modal-cover">`;
+  }
+}
+
+function handleUpload(input, listId) {
+  const list = document.getElementById(listId);
+  Array.from(input.files).forEach(file => {
+    const el = document.createElement('div');
+    el.className = 'uploaded-file';
+    el.innerHTML = `<span class="uploaded-file-name">${file.name}</span><span class="uploaded-file-remove" onclick="this.parentElement.remove()">&#10005;</span>`;
+    list.appendChild(el);
+  });
+  input.value = '';
+}
+</script>
+</body>
+</html>
