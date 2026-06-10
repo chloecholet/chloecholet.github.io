@@ -6,14 +6,15 @@
    ============================================================ */
 
 const PROFILE = {
-  name: "Prénom Nom",
-  title: "M.S. Candidate in Mechanical Engineering",
+  name: "Chloé Cholet",
+  title: "M.S. student in Mechanical Engineering",
   school: "Stanford University",
+  school: "ENSAM ParisTech",
   photo: "assets/portrait.jpg", // ta photo (format portrait conseillé)
-  bio: "Graduate student in Mechanical Engineering at Stanford, passionate about robotics, mechanical design and hands-on prototyping. I am looking for research, course or teaching assistant opportunities where I can combine rigorous engineering with curiosity and creativity.",
-  email: "prenom.nom@stanford.edu",
-  linkedin: "https://www.linkedin.com/in/ton-profil",
-  github: "https://github.com/ton-pseudo",
+  bio: "Graduate student in Mechanical Engineering at Stanford. I am looking for research, course or teaching assistant opportunities where I can combine rigorous engineering with curiosity and creativity.",
+  email: "cholet04@stanford.edu",
+  linkedin: "www.linkedin.com/in/chloé-cholet",
+  github: "https://github.com/chloecholet",
   cv: "assets/cv.pdf", // ton CV en PDF dans /assets
 };
 
@@ -25,18 +26,14 @@ const PROFILE = {
    ------------------------------------------------------------ */
 const PROJECTS = [
   {
-    id: "boule-de-petanque",          // identifiant unique, sans espaces ni accents
-    title: "Boule de pétanque",
+    id: "RESCE",          // identifiant unique, sans espaces ni accents
+    title: "Manufacturing project with Institute Humaine Georges Charpak : Glenoid Prosthesis",
     subtitle: "Precision machining & dynamics study",
     year: "2025",
     tags: ["CAD", "Machining", "Dynamics"],
-    cover: "assets/petanque-cover.jpg",   // image de la case
+    cover: "assets/resce-cover.jpg",   // image de la case
     description: `
-      <p>Décris ici ton projet en quelques paragraphes : le contexte,
-      le problème que tu cherchais à résoudre, ta démarche, les outils
-      utilisés (SolidWorks, ANSYS, usinage CNC…) et les résultats.</p>
-      <p>Tu peux écrire plusieurs paragraphes. Le HTML simple est
-      accepté : <strong>gras</strong>, <em>italique</em>, listes…</p>
+      <p>Aiming at determining the optimal material and prosthesis geometry to minimize the risk of glenoid component loosening.</p>
     `,
     gallery: [
       { src: "assets/petanque-1.jpg", caption: "Prototype final" },
@@ -46,13 +43,14 @@ const PROJECTS = [
     pdf: "assets/petanque-rapport.pdf", // rapport / poster — mets null s'il n'y en a pas
   },
   {
-    id: "second-projet",
-    title: "Titre du second projet",
-    subtitle: "Une ligne qui résume le projet",
+    id: "fonderie",
+    title: "Foundry Design and Optimization Project",
+    subtitle: "manufacture a non-permanent sand mold to cast an aluminum drilling jig",
     year: "2024",
     tags: ["Robotics", "Control"],
     cover: "assets/projet2-cover.jpg",
-    description: `<p>Description détaillée du projet…</p>`,
+    description: `<p>esign and manufacture a non-permanent sand mold to cast an aluminum drilling jig (Al-Si7Mg alloy).
+I led the complete workflow: thermal analysis, gating system design, riser calculations, mold fabrication, casting, and quality control.</p>`,
     gallery: [],
     pdf: null,
   },
@@ -63,13 +61,13 @@ const PROJECTS = [
    ------------------------------------------------------------ */
 const EXPERIENCE = [
   {
-    role: "Mechanical Engineering Intern",
-    org: "Nom de l'entreprise",
-    place: "Ville, Pays",
+    role: "Continuous improvement Engineering Intern",
+    org: "Safran Aircraft Engines",
+    place: "Genevilliers, France",
     dates: "Jun 2025 — Sep 2025",
     points: [
-      "Décris une mission concrète avec un résultat chiffré si possible.",
-      "Deuxième mission ou réalisation marquante.",
+      "Worked on macroscopy and microscopy, analyzing grain size and detecting defects such as freckles or white spots.",
+      "Contributed to process improvement studies and analyzed part flow between units.",
     ],
     logo: "assets/logo-entreprise.png", // optionnel — mets null sinon
   },
