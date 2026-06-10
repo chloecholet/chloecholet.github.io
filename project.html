@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <span class="nav-name" id="nav-name"></span>
+      <div class="nav-links">
+        <a href="index.html#projects">All projects</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="wrap" id="content">
+      <p>Loading…</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span class="fig-label">— end of plate —</span>
+      <p id="footer-text"></p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    document.getElementById("nav-name").textContent = PROFILE.name;
+    document.getElementById("footer-text").textContent =
+      `${PROFILE.name} — ${PROFILE.school} · ${new Date().getFullYear()}`;
+
+    const id = new URLSearchParams(location.search).get("id");
+    const p = PROJECTS.find(x => x.id === id);
+    const root = document.getElementById("content");
+
+    if (!p) {
+      root.innerHTML = `
+        <a class="back-link" href="index.html#projects">&larr; Back to all projects</a>
+        <h1>Project not found</h1>
+        <p>This project does not exist or its link has changed. Browse all projects from the home page.</p>`;
+    } else {
+      document.title = `${p.title} — Portfolio`;
+      const idx = PROJECTS.indexOf(p) + 1;
+
+      root.innerHTML = `
+        <a class="back-link" href="index.html#projects">&larr; Back to all projects</a>
+
+        <span class="fig-label">plate ${String(idx).padStart(2, "0")} · ${esc(p.year)}</span>
+        <h1>${esc(p.title)}</h1>
+        <p class="sub">${esc(p.subtitle)}</p>
+        <div class="tags">${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+
+        ${p.cover ? `
+          <div class="project-hero">
+            <img src="${esc(p.cover)}" alt="${esc(p.title)}"
+                 onerror="this.closest('.project-hero').remove()">
+          </div>` : ""}
+
+        <div class="project-desc">${p.description || ""}</div>
+
+        ${(p.gallery && p.gallery.length) ? `
+          <span class="fig-label">gallery</span>
+          <div class="gallery">
+            ${p.gallery.map((g, i) => `
+              <figure>
+                <img src="${esc(g.src)}" alt="${esc(g.caption || p.title)}"
+                     onerror="this.closest('figure').remove()">
+                <figcaption>fig. ${idx}.${i + 1} — ${esc(g.caption || "")}</figcaption>
+              </figure>`).join("")}
+          </div>` : ""}
+
+        ${p.pdf ? `
+          <div class="pdf-block">
+            <span class="fig-label">report</span>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.6rem;margin:6px 0 4px;">
+              Full report
+            </h2>
+            <p><a href="${esc(p.pdf)}" target="_blank" rel="noopener">Open the PDF in a new tab</a>
+               if the preview below does not load.</p>
+            <iframe class="pdf-frame" src="${esc(p.pdf)}" title="Project report PDF"></iframe>
+          </div>` : ""}
+      `;
+    }
+  </script>
+</body>
+</html>
